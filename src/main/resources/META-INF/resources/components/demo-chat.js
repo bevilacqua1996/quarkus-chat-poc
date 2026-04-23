@@ -23,6 +23,7 @@ export class DemoChat extends LitElement {
         const RECONNECT_INTERVAL = 10000; // 10 seconds
 
         const chatBot = document.getElementsByTagName("chat-bot")[0];
+        const outputDiv = document.getElementById('chat-output');
         const that = this;
 
         let socket = null;
@@ -88,6 +89,15 @@ export class DemoChat extends LitElement {
 
             ws.onmessage = function (event) {
                 chatBot.hideLastLoading();
+                // Mirror LLM output to the chat-output area below the card
+                if (outputDiv) {
+                    const p = document.createElement('div');
+                    p.style.padding = '6px 0';
+                    p.style.borderBottom = '1px dashed rgba(0,0,0,0.04)';
+                    p.textContent = event.data;
+                    outputDiv.appendChild(p);
+                    outputDiv.scrollTo({ top: outputDiv.scrollHeight, behavior: 'smooth' });
+                }
                 // LLM response
                 let lastMessage;
                 if (chatBot.messages.length > 0) {
