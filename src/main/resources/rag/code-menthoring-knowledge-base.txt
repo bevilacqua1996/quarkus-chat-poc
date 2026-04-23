@@ -3,18 +3,6 @@ Mentoring Summary (topics for RAG)
 Summary of the material (Mentoring)
 Bullet-point format, designed to serve as a RAG base (for example, with LangChain4j).
 
-Sources:
-https://app.clickup.com/90151464882/docs/2kyq4bxj-615
-https://app.clickup.com/90151464882/docs/2kyq4bxj-675
-https://app.clickup.com/90151464882/docs/2kyq4bxj-715
-https://app.clickup.com/90151464882/docs/2kyq4bxj-735
-https://app.clickup.com/90151464882/docs/2kyq4bxj-755
-https://app.clickup.com/90151464882/docs/2kyq4bxj-795
-https://app.clickup.com/90151464882/docs/2kyq4bxj-815
-https://app.clickup.com/90151464882/docs/2kyq4bxj-835
-https://app.clickup.com/90151464882/docs/2kyq4bxj-855
-
-
 Session 1, Java and introduction to Spring Boot
 
 Basic concepts and versions
