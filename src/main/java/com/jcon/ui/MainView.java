@@ -20,7 +20,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 import com.vaadin.flow.component.dependency.JsModule;
 
-@Route("")
+@Route(value = "", layout = MainLayout.class)
 @PageTitle("Code Mentoring Knowledge Base")
 @JsModule("./chat-client.js")
 public class MainView extends VerticalLayout {
@@ -38,7 +38,7 @@ public class MainView extends VerticalLayout {
         setAlignItems(FlexComponent.Alignment.STRETCH);
         addClassName(LumoUtility.Padding.MEDIUM);
 
-        H1 title = new H1("Code Mentoring Knowledge Base");
+        ViewTitle title = new ViewTitle("Code Mentoring Knowledge Base");
         title.addClassName(LumoUtility.Margin.NONE);
 
         Paragraph description = new Paragraph("Ask the support agent about the codebase and watch the streamed response appear below.");
@@ -57,13 +57,15 @@ public class MainView extends VerticalLayout {
         statusRow.getStyle().set("margin-bottom", "var(--lumo-space-m)");
 
         transcript.setWidthFull();
-        transcript.setHeight("32rem");
+        transcript.setHeightFull();
         transcript.setReadOnly(true);
         transcript.setId("chat-transcript");
         transcript.setValue("Responses will appear here.\n");
         transcript.getStyle()
                 .set("font-family", "var(--lumo-font-family)")
-                .set("white-space", "pre-wrap");
+                .set("white-space", "pre-wrap")
+                .set("flex", "1 1 auto")
+                .set("min-height", "16rem");
 
         messageInput.setWidthFull();
         messageInput.getStyle()
@@ -95,7 +97,8 @@ public class MainView extends VerticalLayout {
                 .set("border-radius", "var(--lumo-border-radius-l)")
                 .set("padding", "var(--lumo-space-l)")
                 .set("box-shadow", "var(--lumo-box-shadow-m)")
-                .set("flex", "1");
+                .set("flex", "1")
+                .set("min-height", "0");
 
         Div shell = new Div(title, description, statusRow, chatCard);
         shell.getStyle()
@@ -104,7 +107,8 @@ public class MainView extends VerticalLayout {
                 .set("gap", "var(--lumo-space-m)")
                 .set("width", "min(100%, 980px)")
                 .set("margin", "0 auto")
-                .set("flex", "1");
+                .set("flex", "1")
+                .set("min-height", "0");
 
         add(shell);
         expand(shell);

@@ -1,17 +1,29 @@
-/*
-   CSS styling examples for the Vaadin app.
-   Visit https://vaadin.com/docs/latest/styling/application-theme and
-   https://vaadin.com/docs/latest/styling/lumo for more information.
-*/
+/* Add your styles here */
 
-/* Example: CSS class name to center align the content . */
-.centered-content {
-    margin: 0 auto;
-    max-width: 250px;
+.app-logo {
+    border-radius: min(40%, var(--vaadin-radius-m));
+    margin-inline-start: var(--vaadin-padding-inline-container);
 }
 
-/* Example: the style is applied only to the textfields which have the `bordered` class name. */
-vaadin-text-field.bordered::part(input-field) {
-    box-shadow: inset 0 0 0 1px var(--lumo-contrast-30pct);
-    background-color: var(--lumo-base-color);
+.app-name {
+    font-weight: var(--aura-font-weight-semibold);
+    font-size: var(--aura-font-size-l);
+}
+
+.app-footer {
+    color: var(--vaadin-text-color-secondary);
+    font-size: var(--aura-font-size-s);
+}
+
+/* TODO: This is only for demo purposes. You can delete it. */
+vaadin-side-nav:has(vaadin-side-nav-item:only-child)::after {
+    display: block;
+    content: "More menu items will appear here when you add more views.";
+    font-size: var(--aura-font-size-s);
+    color: var(--vaadin-text-color-secondary);
+    box-sizing: border-box;
+    padding: 1em;
+    max-width: 14em;
+    min-width: 100%;
+    white-space: normal;
 }
