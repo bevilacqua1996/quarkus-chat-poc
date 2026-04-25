@@ -1,4 +1,4 @@
-package backend;
+package com.jcon.backend;
 
 import io.quarkus.websockets.next.OnOpen;
 import io.quarkus.websockets.next.OnTextMessage;

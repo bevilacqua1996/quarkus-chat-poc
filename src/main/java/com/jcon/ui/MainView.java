@@ -1,4 +1,4 @@
-package ui;
+package com.jcon.ui;
 
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.UI;

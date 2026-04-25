@@ -1,50 +1,86 @@
 # Quarkus Chat PoC
 
-Summary
--------
-This repository is a small proof-of-concept chat application built with Quarkus. It demonstrates a minimal web UI, a WebSocket-based chat agent, and a simple RAG-style knowledge base placed in resources for experimentation.
+A small proof-of-concept chat application built with Quarkus, Vaadin, WebSockets, and LangChain4j. The app exposes a simple browser UI that talks to a customer-support-style agent and streams responses from a WebSocket endpoint.
 
-What’s included
----------------
-- Quarkus application with developer mode support (see `mvnw`)
-- WebSocket chat agent and a demo front-end served from static resources
-- A small RAG knowledge base for experiments: `src/main/resources/rag/code-menthoring-knowledge-base.txt`
-- Dockerfiles for different runtimes under `src/main/docker` (JVM, native, legacy jar)
+## What this project demonstrates
 
-Key files and locations
------------------------
-- Main Java code: `src/main/java/dev/langchain4j/quarkus/workshop/`
-  - `CustomerSupportAgent.java` — chat agent logic
-  - `CustomerSupportAgentWebSocket.java` — WebSocket endpoints
-  - `ImportmapResource.java` — frontend import map resource
-- Static frontend: `src/main/resources/META-INF/resources/` (index.html, demo JS components)
-- Application config: `src/main/resources/application.properties`
+- A Quarkus 3 application with a custom `@QuarkusMain` entry point
+- A Vaadin-based chat screen served from `src/main/java/com/jcon/ui/MainView.java`
+- A WebSocket chat endpoint at `/customer-support-agent`
+- A LangChain4j AI service that answers questions in a concise, developer-friendly style
+- A simple RAG pipeline that loads local documents from `src/main/resources/rag`
+- A static front-end bridge in `src/main/resources/META-INF/resources/frontend/chat-client.js`
 
-Development
------------
-Run Quarkus in dev mode (live reload):
+## Project structure
+
+Key files and folders:
+
+- `src/main/java/com/jcon/Application.java`
+  - Application bootstrap class
+- `src/main/java/com/jcon/ui/MainView.java`
+  - Main Vaadin UI used for the chat page
+- `src/main/java/com/jcon/backend/CustomerSupportAgent.java`
+  - LangChain4j AI service definition
+- `src/main/java/com/jcon/backend/CustomerSupportAgentWebSocket.java`
+  - WebSocket endpoint that forwards user messages to the agent
+- `src/main/java/com/jcon/backend/RagIngestion.java`
+  - Loads documents into the embedding store at startup
+- `src/main/java/com/jcon/backend/RagRetriever.java`
+  - Builds the retrieval augmentor used by the agent
+- `src/main/resources/rag/code-menthoring-knowledge-base.txt`
+  - Local knowledge base used for retrieval experiments
+- `src/main/resources/META-INF/resources/frontend/chat-client.js`
+  - Browser-side WebSocket client
+- `src/main/resources/META-INF/resources/styles.css`
+  - Extra styling for the Vaadin app
+- `src/main/resources/application.properties`
+  - Model, embedding, and RAG configuration
+
+## Requirements
+
+- Java 21
+- Maven Wrapper included in the repo (`./mvnw`)
+- Ollama running locally with the configured chat model available
+
+The current configuration uses:
+
+- Chat model: `qwen3:1.7b`
+- Temperature: `0`
+- Embedding model: `BgeSmallEnQuantizedEmbeddingModel`
+- RAG document location: `src/main/resources/rag`
+
+## Run locally
+
+Start the application in development mode:
 
 ```bash
 ./mvnw quarkus:dev
 ```
 
-Build
------
-Create a JVM jar:
+Then open the app in your browser and use the chat UI to send a message.
+
+## Build
+
+Create a regular application build:
 
 ```bash
 ./mvnw package
 ```
 
-Docker / Containers
--------------------
-There are multiple Dockerfiles in `src/main/docker` for different packaging options (JVM, native, legacy jar). Use the one matching your target runtime.
+## How it works
 
-Notes and next steps
---------------------
-- The project is intentionally small and experimental. It uses static demo front-end components and a text file knowledge base for rapid prototyping.
-- Next improvements typically include wiring an LLM backend, improving the RAG pipeline, and adding tests.
+1. The Vaadin UI loads the chat page and initializes the browser WebSocket client.
+2. The browser connects to `/customer-support-agent`.
+3. When the app starts, `RagIngestion` loads documents from `src/main/resources/rag` into the embedding store.
+4. User messages are sent to `CustomerSupportAgent`.
+5. The agent uses retrieval-augmented context to generate a streamed answer.
 
-License
--------
-No license file provided in the repo; treat this as sample code.
+## Notes
+
+- The project is intentionally small and experimental.
+- The knowledge base is stored as plain text so it is easy to change and re-ingest.
+- Logging for LangChain4j and Ollama is set to `DEBUG` in `application.properties` to make local experimentation easier.
+
+## License
+
+No license file is included in this repository.

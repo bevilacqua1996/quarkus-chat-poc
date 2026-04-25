@@ -1,4 +1,4 @@
-package backend;
+package com.jcon.backend;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;

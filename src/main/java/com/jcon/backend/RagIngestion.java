@@ -1,4 +1,4 @@
-package backend;
+package com.jcon.backend;
 
 import static dev.langchain4j.data.document.splitter.DocumentSplitters.recursive;
 

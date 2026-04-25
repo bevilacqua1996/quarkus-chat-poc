@@ -1,4 +1,4 @@
-package backend;
+package com.jcon.backend;
 
 import dev.langchain4j.service.SystemMessage;
 import io.quarkiverse.langchain4j.RegisterAiService;
