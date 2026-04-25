@@ -1,4 +1,4 @@
-package dev.langchain4j.quarkus.workshop;
+package backend;
 
 import static dev.langchain4j.data.document.splitter.DocumentSplitters.recursive;
 

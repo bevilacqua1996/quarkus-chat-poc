@@ -1,4 +1,4 @@
-package dev.langchain4j.quarkus.workshop;
+package backend;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;

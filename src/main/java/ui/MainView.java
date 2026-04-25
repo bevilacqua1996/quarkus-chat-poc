@@ -1,4 +1,4 @@
-package dev.langchain4j.quarkus.workshop;
+package ui;
 
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.UI;

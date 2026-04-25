@@ -1,4 +1,4 @@
-package dev.langchain4j.quarkus.workshop;
+package backend;
 
 import io.quarkus.websockets.next.OnOpen;
 import io.quarkus.websockets.next.OnTextMessage;
