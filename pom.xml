@@ -89,6 +89,11 @@
             <artifactId>quarkus-langchain4j-pgvector</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>io.quarkiverse.langchain4j</groupId>
+            <artifactId>quarkus-langchain4j-mcp</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
