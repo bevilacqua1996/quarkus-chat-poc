@@ -74,16 +74,16 @@ function transcriptElement() {
 
 function bubbleBaseStyles(role) {
   const palette = {
-    system: "background: var(--lumo-contrast-5pct); color: var(--lumo-secondary-text-color);",
-    user: "background: var(--lumo-primary-color-10pct); color: var(--lumo-body-text-color); align-self: flex-end;",
-    assistant: "background: var(--lumo-base-color); color: var(--lumo-body-text-color); border: 1px solid var(--lumo-contrast-10pct);",
+    system: "background: var(--vaadin-background-container); color: var(--vaadin-text-color-secondary);",
+    user: "background: color-mix(in srgb, var(--aura-blue) 18%, transparent); color: var(--vaadin-text-color); align-self: flex-end;",
+    assistant: "background: var(--aura-surface-color-solid); color: var(--vaadin-text-color); border: 1px solid var(--vaadin-border-color-secondary);",
   };
 
   return [
     "max-width: min(72ch, 100%);",
-    "padding: var(--lumo-space-s) var(--lumo-space-m);",
-    "border-radius: var(--lumo-border-radius-l);",
-    "box-shadow: var(--lumo-box-shadow-xs);",
+    "padding: var(--vaadin-gap-s) var(--vaadin-gap-m);",
+    "border-radius: var(--aura-base-radius, var(--vaadin-radius-m));",
+    "box-shadow: 0 1px 3px rgb(0 0 0 / 0.08);",
     "overflow-wrap: anywhere;",
     palette[role] || palette.assistant,
   ].join(" ");
@@ -97,7 +97,6 @@ function clearTranscript() {
   const transcript = transcriptElement();
   if (transcript) {
     transcript.innerHTML = "";
-    transcript.insertAdjacentHTML("beforeend", bubbleHtml("system", "Responses will appear here."));
   }
   botBuffer = "";
   assistantBubble = null;
@@ -153,7 +152,13 @@ function updateStatus(text, color) {
   const status = document.getElementById("connection-status");
   if (status) {
     status.textContent = text;
-    status.style.color = color || "";
+    const palette = {
+      connected: "var(--aura-green-text)",
+      disconnected: "var(--aura-red-text)",
+      reconnecting: "var(--aura-blue-text)",
+      connecting: "var(--aura-blue-text)",
+    };
+    status.style.setProperty("--status-color", palette[color] || palette.connecting);
   }
 }
 
@@ -169,11 +174,11 @@ function connect() {
     reconnectAttempts = 0;
     clearTimeout(reconnectTimer);
     reconnectTimer = null;
-    updateStatus("Connected", "var(--lumo-success-text-color)");
+    updateStatus("Connected", "connected");
   };
 
   socket.onmessage = (event) => {
-    updateStatus("Connected", "var(--lumo-success-text-color)");
+    updateStatus("Connected", "connected");
     if (event.data === "Welcome to Menthoring Knowledge base! How can I help you today?") {
       appendTranscript(event.data);
       return;
@@ -183,18 +188,18 @@ function connect() {
   };
 
   socket.onclose = () => {
-    updateStatus("Reconnecting...", "var(--lumo-warning-text-color)");
+    updateStatus("Reconnecting...", "reconnecting");
     if (reconnectAttempts < 30) {
       reconnectAttempts += 1;
       reconnectTimer = window.setTimeout(connect, 10000);
     } else {
-      updateStatus("Connection lost", "var(--lumo-error-text-color)");
+      updateStatus("Connection lost", "disconnected");
       appendTranscript("System: Connection lost - please refresh the browser.");
     }
   };
 
   socket.onerror = () => {
-    updateStatus("Connection error", "var(--lumo-error-text-color)");
+    updateStatus("Connection error", "disconnected");
   };
 }
 

@@ -23,7 +23,6 @@ public class MainView extends VerticalLayout {
         setPadding(false);
         setSpacing(false);
         add(content);
-        expand(content);
 
         content.getActionBar().getSendButton().addClickListener(event -> sendCurrentMessage());
         content.getActionBar().getClearButton().addClickListener(event -> {

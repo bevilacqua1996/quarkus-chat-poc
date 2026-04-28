@@ -16,8 +16,8 @@ public class ChatActionBar extends HorizontalLayout {
         sendButton = new Button("Send", new Icon(VaadinIcon.PAPERPLANE));
         clearButton = new Button("Clear", new Icon(VaadinIcon.TRASH));
 
-        sendButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        clearButton.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
+        sendButton.addThemeVariants(ButtonVariant.PRIMARY);
+        clearButton.addThemeVariants(ButtonVariant.TERTIARY);
 
         setAlignItems(FlexComponent.Alignment.END);
         setWidthFull();

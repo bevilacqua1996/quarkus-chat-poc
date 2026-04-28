@@ -1,0 +1,25 @@
+.main-view-content {
+    width: 100%;
+    padding: 0;
+}
+
+.main-view-content .shell {
+    display: flex;
+    flex-direction: column;
+    gap: var(--vaadin-gap-m);
+    width: min(100%, 980px);
+    margin: 0 auto;
+    height: fit-content;
+}
+
+.main-view-content .title {
+    margin: 0;
+}
+
+.main-view-content .description {
+    color: var(--vaadin-text-color-secondary);
+}
+
+.main-view-content .status-row {
+    margin-bottom: var(--vaadin-gap-m);
+}

@@ -1,0 +1,8 @@
+.chat-connection-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    color: var(--status-color, var(--aura-blue-text));
+    --status-color: var(--aura-blue-text);
+}

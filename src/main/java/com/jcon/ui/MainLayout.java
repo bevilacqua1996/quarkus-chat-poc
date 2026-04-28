@@ -11,7 +11,7 @@ import com.vaadin.flow.router.Layout;
 @Layout
 public final class MainLayout extends AppLayout {
 
-    MainLayout() {
+    public MainLayout() {
         setPrimarySection(Section.NAVBAR);
         // place header in the navbar so its DrawerToggle remains visible
         addToNavbar(createApplicationHeader());

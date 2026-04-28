@@ -1,19 +1,16 @@
 package com.jcon.ui.components;
 
+import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.html.Span;
 
+@StyleSheet("style-components/chat-connection-status.css")
 public class ChatConnectionStatus extends Span {
 
     public static final String ELEMENT_ID = "connection-status";
 
     public ChatConnectionStatus() {
         super("Connecting...");
-        getStyle()
-                .set("display", "inline-flex")
-                .set("align-items", "center")
-                .set("gap", "0.5rem")
-                .set("font-weight", "600")
-                .set("color", "var(--lumo-secondary-text-color)");
+        addClassName("chat-connection-status");
         setId(ELEMENT_ID);
         getElement().setAttribute("aria-live", "polite");
     }

@@ -1,11 +1,12 @@
 package com.jcon.ui.components;
 
+import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.theme.lumo.LumoUtility;
 
+@StyleSheet("style-components/main-view-content.css")
 public class MainViewContent extends VerticalLayout {
 
     private final ChatConnectionStatus connectionStatus;
@@ -14,21 +15,21 @@ public class MainViewContent extends VerticalLayout {
     private final ChatActionBar actionBar;
 
     public MainViewContent() {
-        setSizeFull();
+        setWidthFull();
         setPadding(false);
         setSpacing(false);
         setAlignItems(FlexComponent.Alignment.STRETCH);
-        addClassName(LumoUtility.Padding.MEDIUM);
+        addClassName("main-view-content");
 
         var title = new ViewTitle("Code Mentoring Knowledge Base");
-        title.addClassName(LumoUtility.Margin.NONE);
+        title.addClassName("title");
 
         var description = new Paragraph("Ask the support agent about the codebase and watch the streamed response appear below.");
-        description.addClassName(LumoUtility.TextColor.SECONDARY);
+        description.addClassName("description");
 
         connectionStatus = new ChatConnectionStatus();
         Div statusRow = new Div(connectionStatus);
-        statusRow.getStyle().set("margin-bottom", "var(--lumo-space-m)");
+        statusRow.addClassName("status-row");
 
         transcript = new ChatTranscript();
         messageInput = new ChatMessageInput();
@@ -37,12 +38,7 @@ public class MainViewContent extends VerticalLayout {
         ChatCard chatCard = new ChatCard(transcript, messageInput, actionBar);
 
         Div shell = new Div(title, description, statusRow, chatCard);
-        shell.getStyle()
-                .set("display", "flex")
-                .set("flex-direction", "column")
-                .set("gap", "var(--lumo-space-m)")
-                .set("width", "min(100%, 980px)")
-                .set("margin", "0 auto");
+        shell.addClassName("shell");
 
         add(shell);
     }

@@ -1,7 +1,9 @@
 package com.jcon.ui.components;
 
+import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.html.Div;
 
+@StyleSheet("style-components/chat-transcript.css")
 public class ChatTranscript extends Div {
 
     public static final String ELEMENT_ID = "chat-transcript";
@@ -9,16 +11,7 @@ public class ChatTranscript extends Div {
     public ChatTranscript() {
         setWidthFull();
         setId(ELEMENT_ID);
-        getStyle()
-                .set("display", "flex")
-                .set("flex-direction", "column")
-                .set("gap", "var(--lumo-space-s)")
-                .set("min-height", "10rem")
-                .set("overflow-y", "auto")
-                .set("padding", "var(--lumo-space-s)")
-                .set("border-radius", "var(--lumo-border-radius-m)")
-                .set("background", "var(--lumo-contrast-5pct)")
-                .set("box-sizing", "border-box");
+        addClassName("chat-transcript");
     }
 
     public void reset() {
