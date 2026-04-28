@@ -16,6 +16,7 @@ public class MainViewContent extends VerticalLayout {
 
     public MainViewContent() {
         setWidthFull();
+        setHeightFull();
         setPadding(false);
         setSpacing(false);
         setAlignItems(FlexComponent.Alignment.STRETCH);

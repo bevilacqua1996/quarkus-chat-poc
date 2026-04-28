@@ -1,14 +1,16 @@
-package com.jcon.ui;
+package com.jcon.ui.views;
 
 import com.jcon.ui.components.ViewTitle;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.avatar.Avatar;
 import com.vaadin.flow.component.avatar.AvatarVariant;
+import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.orderedlayout.*;
 import com.vaadin.flow.router.Layout;
 
 @Layout
+@StyleSheet("frontend/chat-bubbles.css")
 public final class MainLayout extends AppLayout {
 
     public MainLayout() {

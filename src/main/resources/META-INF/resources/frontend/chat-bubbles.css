@@ -1,0 +1,37 @@
+.chat-bubble {
+    max-width: min(72ch, 100%);
+    padding: var(--vaadin-gap-s) var(--vaadin-gap-m);
+    border-radius: var(--aura-base-radius, var(--vaadin-radius-m));
+    box-shadow: 0 1px 3px rgb(0 0 0 / 0.08);
+    overflow-wrap: anywhere;
+}
+
+.chat-bubble--system {
+    background: var(--vaadin-background-container);
+    color: var(--vaadin-text-color-secondary);
+}
+
+.chat-bubble--user {
+    background: color-mix(in srgb, var(--aura-blue) 18%, transparent);
+    color: var(--vaadin-text-color);
+    align-self: flex-end;
+}
+
+.chat-bubble--assistant {
+    background: var(--aura-surface-color-solid);
+    color: var(--vaadin-text-color);
+    border: 1px solid var(--vaadin-border-color-secondary);
+}
+
+.chat-connection-status--connected {
+    --status-color: var(--aura-green-text);
+}
+
+.chat-connection-status--disconnected {
+    --status-color: var(--aura-red-text);
+}
+
+.chat-connection-status--reconnecting,
+.chat-connection-status--connecting {
+    --status-color: var(--aura-blue-text);
+}

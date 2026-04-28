@@ -72,25 +72,8 @@ function transcriptElement() {
   return document.getElementById(transcriptId);
 }
 
-function bubbleBaseStyles(role) {
-  const palette = {
-    system: "background: var(--vaadin-background-container); color: var(--vaadin-text-color-secondary);",
-    user: "background: color-mix(in srgb, var(--aura-blue) 18%, transparent); color: var(--vaadin-text-color); align-self: flex-end;",
-    assistant: "background: var(--aura-surface-color-solid); color: var(--vaadin-text-color); border: 1px solid var(--vaadin-border-color-secondary);",
-  };
-
-  return [
-    "max-width: min(72ch, 100%);",
-    "padding: var(--vaadin-gap-s) var(--vaadin-gap-m);",
-    "border-radius: var(--aura-base-radius, var(--vaadin-radius-m));",
-    "box-shadow: 0 1px 3px rgb(0 0 0 / 0.08);",
-    "overflow-wrap: anywhere;",
-    palette[role] || palette.assistant,
-  ].join(" ");
-}
-
 function bubbleHtml(role, markdown) {
-  return `<div style="${bubbleBaseStyles(role)}">${renderMarkdown(markdown)}</div>`;
+  return `<div class="chat-bubble chat-bubble--${role}">${renderMarkdown(markdown)}</div>`;
 }
 
 function clearTranscript() {
@@ -111,7 +94,7 @@ function appendBubble(role, markdown) {
 
   const bubble = document.createElement("div");
   bubble.setAttribute("data-role", role);
-  bubble.setAttribute("style", bubbleBaseStyles(role));
+  bubble.classList.add("chat-bubble", `chat-bubble--${role}`);
   bubble.innerHTML = renderMarkdown(markdown);
   transcript.appendChild(bubble);
   transcript.scrollTop = transcript.scrollHeight;
@@ -152,13 +135,12 @@ function updateStatus(text, color) {
   const status = document.getElementById("connection-status");
   if (status) {
     status.textContent = text;
-    const palette = {
-      connected: "var(--aura-green-text)",
-      disconnected: "var(--aura-red-text)",
-      reconnecting: "var(--aura-blue-text)",
-      connecting: "var(--aura-blue-text)",
-    };
-    status.style.setProperty("--status-color", palette[color] || palette.connecting);
+    // Remove all status classes first
+    status.classList.remove("chat-connection-status--connected", "chat-connection-status--disconnected", "chat-connection-status--reconnecting", "chat-connection-status--connecting");
+    // Add the new status class
+    if (color) {
+      status.classList.add(`chat-connection-status--${color}`);
+    }
   }
 }
 
@@ -208,6 +190,26 @@ window.customerSupportChat = {
     clearTranscript();
     if (!socket || socket.readyState === WebSocket.CLOSED) {
       connect();
+    }
+    // Setup Enter/Shift+Enter handling for message input
+    const messageInput = document.getElementById("chat-message-input");
+    if (messageInput) {
+      messageInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          if (e.shiftKey) {
+            // Shift+Enter: allow default (newline)
+            return;
+          } else {
+            // Enter alone: send message
+            e.preventDefault();
+            const message = messageInput.value.trim();
+            if (message) {
+              window.customerSupportChat.sendMessage(message);
+              messageInput.value = "";
+            }
+          }
+        }
+      });
     }
   },
   sendMessage(message) {

@@ -1,6 +1,5 @@
 package com.jcon.ui.views;
 
-import com.jcon.ui.MainLayout;
 import com.jcon.ui.components.MainViewContent;
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.UI;

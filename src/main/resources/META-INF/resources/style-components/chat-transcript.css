@@ -8,4 +8,5 @@
     border-radius: var(--aura-base-radius, var(--vaadin-radius-m));
     background: var(--vaadin-background-container);
     box-sizing: border-box;
+    height: 100%;
 }
