@@ -1,4 +1,4 @@
-package com.jcon.ui;
+package com.jcon.ui.components;
 
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.dependency.StyleSheet;
