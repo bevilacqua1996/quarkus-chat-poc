@@ -5,9 +5,10 @@ A small proof-of-concept chat application built with Quarkus, Vaadin, and LangCh
 ## What this project demonstrates
 
 - A Quarkus 3 application with a custom `@QuarkusMain` entry point
-- A Vaadin-based chat screen served from `src/main/java/com/jcon/ui/MainView.java`
+- A Vaadin-based chat screen served from `src/main/java/com/jcon/ui/views/MainView.java`
 - A LangChain4j AI service that answers questions in a concise, developer-friendly style
-- A simple RAG pipeline that loads local documents from `src/main/resources/rag`
+- A server-side input guardrail that blocks out-of-scope questions before they reach the model
+- A simple RAG policy file in `src/main/resources/rag/code-menthoring-knowledge-base.txt`
 - Server-side markdown rendering for assistant responses, including code blocks and links
 
 ## Project structure
@@ -19,13 +20,15 @@ Key files and folders:
 - `src/main/java/com/jcon/ui/MainView.java`
   - Main Vaadin UI used for the chat page
 - `src/main/java/com/jcon/backend/CustomerSupportAgent.java`
-  - LangChain4j AI service definition
+  - LangChain4j AI service definition with MCP priority and Markdown output rules
+- `src/main/java/com/jcon/backend/MentoringScopeGuardrail.java`
+  - Input guardrail that blocks out-of-scope questions and preserves casual small talk
 - `src/main/java/com/jcon/backend/RagIngestion.java`
   - Loads documents into the embedding store at startup
 - `src/main/java/com/jcon/backend/RagRetriever.java`
   - Builds the retrieval augmentor used by the agent
 - `src/main/resources/rag/code-menthoring-knowledge-base.txt`
-  - Local knowledge base used for retrieval experiments
+  - Local policy text used to guide the assistant on scope, tone, and examples
 - `src/main/resources/META-INF/resources/styles.css`
   - Extra styling for the Vaadin app
 - `src/main/resources/application.properties`
@@ -65,9 +68,9 @@ Create a regular application build:
 ## How it works
 
 1. The Vaadin UI loads the chat page and initializes the server-side conversation state.
-2. When the app starts, `RagIngestion` loads documents from `src/main/resources/rag` into the embedding store.
-3. User messages are sent directly to `CustomerSupportAgent` from the Vaadin view.
-4. The agent uses retrieval-augmented context to generate a streamed answer.
+2. The guardrail checks each user message and rewrites out-of-scope requests to a sentinel value.
+3. The agent checks the menthoring MCP tool first for technical questions and must base those answers on the tool results.
+4. The `rag` policy file guides scope, tone, and the fallback message for unsupported questions.
 5. The server renders markdown, including code snippets, into Vaadin components.
 
 ## Notes
