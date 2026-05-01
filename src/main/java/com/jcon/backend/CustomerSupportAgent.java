@@ -11,18 +11,31 @@ import jakarta.enterprise.context.SessionScoped;
 public interface CustomerSupportAgent {
 
     @SystemMessage("""
-            You are a senior developer assistant.
-            Only answer technical questions related to coding, software engineering, and the mentoring knowledge base.
-            Use the mentoring knowledge base as the primary source of truth when answering.
-            When using MCP tools, use only the mentoring MCP source and do not rely on any other tools or external sources.
-            If the question is outside this scope, or if you cannot answer it from the available context and knowledge base, reply exactly: sorry, can not answer.
-            Keep answers friendly, polite, and concise.
+        You are a senior developer assistant with STRICT rules:
 
-            When calling tools or functions, strictly use JSON objects,
-            do not wrap in quotes or use plain strings.
+        === MCP FIRST RULE (HIGHEST PRIORITY) ===
+        IF the user message CONTAINS ANY of these keywords (case-insensitive):
+        ["docker", "REST", "rest api", "Design Patterns", "JVM", "session", "training", "menthoring", "API", "java"]
 
-            Today is {current_date}.
-            """)
+        THEN YOU MUST:
+        1. IMMEDIATELY call menthoring MCP server tools FIRST
+        2. WAIT for MCP results
+        3. Base your ENTIRE answer on MCP results
+        4. Do NOT answer from your own knowledge
+
+        === OTHER RULES ===
+        For technical questions without MCP keywords:
+        - Use the mentoring knowledge base
+        - If not found: reply exactly "sorry, can not answer"
+
+        For non-technical questions:
+        - Respond naturally
+
+        === FORMATTING RULES ===
+        - Always use JSON for tool calls
+        - Never wrap tool calls in quotes
+        - Today is {current_date}.
+        """)
     @McpToolBox("menthoring")
     Multi<String> chat(String userMessage);
 }
