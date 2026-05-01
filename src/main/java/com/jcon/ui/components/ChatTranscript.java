@@ -18,7 +18,9 @@ public class ChatTranscript extends Div {
         removeAll();
     }
 
-    public void setMarkdownContent(String markdown) {
-        setText(markdown);
+    public ChatBubble appendMessage(String role, String markdown) {
+        ChatBubble bubble = new ChatBubble(role, markdown);
+        add(bubble);
+        return bubble;
     }
 }

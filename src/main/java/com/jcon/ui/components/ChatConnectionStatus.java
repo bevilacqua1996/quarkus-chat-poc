@@ -9,9 +9,13 @@ public class ChatConnectionStatus extends Span {
     public static final String ELEMENT_ID = "connection-status";
 
     public ChatConnectionStatus() {
-        super("Connecting...");
+        super("Ready");
         addClassName("chat-connection-status");
         setId(ELEMENT_ID);
         getElement().setAttribute("aria-live", "polite");
+    }
+
+    public void setStatus(String status) {
+        setText(status);
     }
 }

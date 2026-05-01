@@ -17,4 +17,5 @@ public class Application implements QuarkusApplication {
         Quarkus.waitForExit();
         return 0;
     }
+    
 }

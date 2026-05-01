@@ -6,6 +6,50 @@
     overflow-wrap: anywhere;
 }
 
+.chat-bubble__content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.chat-bubble p {
+    margin: 0;
+    white-space: pre-wrap;
+}
+
+.chat-bubble h1,
+.chat-bubble h2,
+.chat-bubble h3,
+.chat-bubble h4,
+.chat-bubble h5,
+.chat-bubble h6 {
+    margin: 0;
+}
+
+.chat-bubble ul,
+.chat-bubble ol {
+    margin: 0;
+    padding-left: 1.25rem;
+}
+
+.chat-bubble pre {
+    margin: 0;
+    padding: 0.85rem 1rem;
+    border-radius: var(--aura-base-radius, var(--vaadin-radius-m));
+    overflow-x: auto;
+    background: color-mix(in srgb, var(--vaadin-background-container) 65%, transparent);
+}
+
+.chat-bubble code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+}
+
+.chat-bubble__inline-code {
+    padding: 0.1rem 0.35rem;
+    border-radius: 0.25rem;
+    background: color-mix(in srgb, var(--vaadin-background-container) 75%, transparent);
+}
+
 .chat-bubble--system {
     background: var(--vaadin-background-container);
     color: var(--vaadin-text-color-secondary);
