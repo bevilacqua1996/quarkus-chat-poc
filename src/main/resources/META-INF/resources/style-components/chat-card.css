@@ -1,0 +1,11 @@
+.chat-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--vaadin-gap-m);
+    background: var(--aura-surface-color-solid);
+    border-radius: var(--aura-base-radius, var(--vaadin-radius-m));
+    padding: var(--vaadin-gap-l);
+    border: 1px solid var(--vaadin-border-color-secondary);
+    height: 100%;
+    min-height: 0;
+}

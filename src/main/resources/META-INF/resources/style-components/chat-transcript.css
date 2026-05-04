@@ -1,0 +1,12 @@
+.chat-transcript {
+    display: flex;
+    flex-direction: column;
+    gap: var(--vaadin-gap-s);
+    min-height: 10rem;
+    overflow-y: auto;
+    padding: var(--vaadin-gap-s);
+    border-radius: var(--aura-base-radius, var(--vaadin-radius-m));
+    background: var(--vaadin-background-container);
+    box-sizing: border-box;
+    height: 100%;
+}
