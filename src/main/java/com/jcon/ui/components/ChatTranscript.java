@@ -3,7 +3,7 @@ package com.jcon.ui.components;
 import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.html.Div;
 
-@StyleSheet("style-components/chat-transcript.css")
+@StyleSheet("context://style-components/chat-transcript.css")
 public class ChatTranscript extends Div {
 
     public static final String ELEMENT_ID = "chat-transcript";

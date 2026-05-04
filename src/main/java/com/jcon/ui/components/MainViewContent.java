@@ -6,7 +6,7 @@ import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
-@StyleSheet("style-components/main-view-content.css")
+@StyleSheet("context://style-components/main-view-content.css")
 public class MainViewContent extends VerticalLayout {
 
     private final ChatConnectionStatus connectionStatus;

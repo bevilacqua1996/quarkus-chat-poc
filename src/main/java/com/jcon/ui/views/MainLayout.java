@@ -10,7 +10,7 @@ import com.vaadin.flow.component.orderedlayout.*;
 import com.vaadin.flow.router.Layout;
 
 @Layout
-@StyleSheet("frontend/chat-bubbles.css")
+@StyleSheet("context://style-components/chat-bubbles.css")
 public final class MainLayout extends AppLayout {
 
     public MainLayout() {

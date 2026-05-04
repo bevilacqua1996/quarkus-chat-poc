@@ -1,0 +1,75 @@
+services:
+  quarkus-chat-poc:
+    volumes:
+      - /home/bevilacqua96/rag:/app/rag
+    image: quarkus-chat-poc:native
+    build:
+      context: .
+      dockerfile: src/main/docker/Dockerfile.native
+    ports:
+      - "8080:8080"
+    environment:
+      RAG_LOCATION: /app/rag
+      QUARKUS_LANGCHAIN4J_MCP_MENTHORING_URL: http://personal-mcp-server:8081/api/mcp
+      QUARKUS_LANGCHAIN4J_OLLAMA_BASE_URL: http://ollama:11434
+      QUARKUS_DATASOURCE_JDBC_URL: jdbc:postgresql://pgvector:5432/quarkus_chat
+      QUARKUS_DATASOURCE_USERNAME: quarkus
+      QUARKUS_DATASOURCE_PASSWORD: quarkus
+      QUARKUS_LANGCHAIN4J_OLLAMA_CHAT_MODEL_MODEL_NAME: "qwen3:1.7b"
+      QUARKUS_LANGCHAIN4J_OLLAMA_CHAT_MODEL_TEMPERATURE: 0
+      QUARKUS_LANGCHAIN4J_TIMEOUT: 120s
+      QUARKUS_LANGCHAIN4J_EMBEDDING_MODEL_PROVIDER: dev.langchain4j.model.embedding.onnx.bgesmallenq.BgeSmallEnQuantizedEmbeddingModel
+      QUARKUS_LANGCHAIN4J_PGVECTOR_DIMENSION: 384
+      QUARKUS_LOG_CATEGORY_"IO.QUARKIVERSE.LANGCHAIN4J".LEVEL: DEBUG
+      QUARKUS_LOG_CATEGORY_"DEV.LANGCHAIN4J".LEVEL: DEBUG
+      QUARKUS_LOG_CATEGORY_"IO.QUARKIVERSE.LANGCHAIN4J.OLLAMA".LEVEL: DEBUG
+      QUARKUS_LANGCHAIN4J_MCP_MENTHORING_TRANSPORT_TYPE: "streamable-http"
+      QUARKUS_LANGCHAIN4J_MCP_MENTHORING_LOG_REQUESTS: "true"
+      QUARKUS_LANGCHAIN4J_MCP_MENTHORING_LOG_RESPONSES: "true"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      pgvector:
+        condition: service_healthy
+      personal-mcp-server:
+        condition: service_started
+      ollama:
+        condition: service_started
+
+  personal-mcp-server:
+    image: personal-mcp-server:native
+    build:
+      context: ../PersonalMCPServer
+      dockerfile: src/main/docker/Dockerfile.native
+    environment:
+      QUARKUS_APPLICATION_NAME: "mcpServerPersonal"
+      QUARKUS_HTTP_PORT: 8081
+      QUARKUS_LOG_CATEGORY_"com.bevilacqua1996.mcpServerPersonal".LEVEL: DEBUG
+    ports:
+      - "8081:8081"
+    env_file:
+      - ../PersonalMCPServer/.env
+
+  pgvector:
+    image: pgvector/pgvector:pg17 
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: quarkus
+      POSTGRES_PASSWORD: quarkus
+      POSTGRES_DB: quarkus_chat
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U quarkus -d quarkus_chat"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+
+volumes:
+  ollama_data:

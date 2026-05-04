@@ -4,7 +4,7 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.html.Div;
 
-@StyleSheet("style-components/chat-bubbles.css")
+@StyleSheet("context://style-components/chat-bubbles.css")
 public class ChatBubble extends Div {
 
     private final Div content = new Div();

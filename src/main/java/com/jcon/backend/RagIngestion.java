@@ -39,8 +39,7 @@ public class RagIngestion {
         EmbeddingStoreIngestor ingestor = EmbeddingStoreIngestor.builder()
                 .embeddingStore(store)
                 .embeddingModel(embeddingModel)
-                .documentSplitter(recursive(100, 25,
-                        new HuggingFaceTokenCountEstimator()))
+                .documentSplitter(recursive(100, 25))
                 .build();
         ingestor.ingest(list);
         Log.info("Documents ingested successfully");

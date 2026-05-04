@@ -4,7 +4,7 @@ import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.data.value.ValueChangeMode;
 
-@StyleSheet("style-components/chat-message-input.css")
+@StyleSheet("context://style-components/chat-message-input.css")
 public class ChatMessageInput extends TextArea {
 
     public static final String ELEMENT_ID = "chat-message-input";

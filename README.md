@@ -65,6 +65,33 @@ Create a regular application build:
 ./mvnw package
 ```
 
+## Run With Docker Compose
+
+The compose setup runs this app and `../PersonalMCPServer` using their `src/main/docker/Dockerfile.native` files. Build the native runners first:
+
+```bash
+./mvnw package -Dnative
+cd ../PersonalMCPServer
+./gradlew clean build -Dquarkus.native.enabled=true -Dquarkus.package.jar.enabled=false -x test
+cd ../quarkus-chat-poc
+```
+
+The MCP native build skips tests because `../PersonalMCPServer/.env` provides `GITHUB_TOKEN`, while one test expects the token to be absent.
+
+Create a local `.env` file in `../PersonalMCPServer` and set your real GitHub token:
+
+```bash
+cp ../PersonalMCPServer/.env.example ../PersonalMCPServer/.env
+```
+
+Then start both services:
+
+```bash
+docker compose up --build
+```
+
+The chat app is exposed on `http://localhost:8080`, and the MCP server is exposed on `http://localhost:8081`. Inside Docker, the chat app connects to the MCP server through `http://personal-mcp-server:8081/api/mcp`.
+
 ## How it works
 
 1. The Vaadin UI loads the chat page and initializes the server-side conversation state.

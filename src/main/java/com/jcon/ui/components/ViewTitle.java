@@ -5,7 +5,7 @@ import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 
-@StyleSheet("view-title.css")
+@StyleSheet("context://view-title.css")
 public class ViewTitle extends Composite<HorizontalLayout> {
 
     public ViewTitle(String title) {
