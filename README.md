@@ -5,11 +5,12 @@ A small proof-of-concept chat application built with Quarkus, Vaadin, and LangCh
 ## What this project demonstrates
 
 - A Quarkus 3 application with a custom `@QuarkusMain` entry point
-- A Vaadin-based chat screen served from `src/main/java/com/jcon/ui/views/MainView.java`
+- A **Vaadin-based UI** with a responsive chat interface that handles real-time streaming of AI responses. The UI is built with Vaadin's server-side Java components, providing a modern web experience without writing frontend JavaScript.
 - A LangChain4j AI service that answers questions in a concise, developer-friendly style
 - A server-side input guardrail that blocks out-of-scope questions before they reach the model
 - A simple RAG policy file in `src/main/resources/rag/code-menthoring-knowledge-base.txt`
 - Server-side markdown rendering for assistant responses, including code blocks and links
+- **Integration with [PersonalMCPServer](https://github.com/bevilacqua1996/PersonalMCPServer)** for extended capabilities and tool access
 
 ## Project structure
 
@@ -39,6 +40,7 @@ Key files and folders:
 - Java 21
 - Maven Wrapper included in the repo (`./mvnw`)
 - Ollama running locally with the configured chat model available
+- **[PersonalMCPServer](https://github.com/bevilacqua1996/PersonalMCPServer)** running and accessible for MCP tool integration
 
 The current configuration uses:
 
