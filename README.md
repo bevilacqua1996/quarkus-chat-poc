@@ -82,3 +82,8 @@ Create a regular application build:
 ## License
 
 No license file is included in this repository.
+
+## Architecture for a demo integrated with Mcp Server
+
+<img width="1440" height="840" alt="image" src="https://github.com/user-attachments/assets/2b967b19-41b3-4001-8bf8-a36b2c1a4b4b" />
+
